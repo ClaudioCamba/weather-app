@@ -1,5 +1,57 @@
-// @import "./reset.scss";
+@import "./reset.scss";
+
+:root {
+  font-size: 16px;
+}
 
 body {
-  background-color: lightblue;
+  background-color: #f0f0f0;
+}
+
+#weather-app > div {
+  border: 1px solid red;
+}
+
+#weather-app {
+  width: 100vw;
+  height: 100vh;
+  padding: 5rem;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+
+  .title-search {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    .input-wrap {
+      align-self: center;
+      justify-self: right;
+    }
+
+    h1 {
+      align-self: center;
+      justify-self: left;
+    }
+  }
+
+  .current,
+  .forecast {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .forecast {
+    ul {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      width: 100%;
+
+      li {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
 }

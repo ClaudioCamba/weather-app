@@ -109,6 +109,9 @@ section {
 body {
   line-height: 1;
 }
+body * {
+  box-sizing: border-box;
+}
 ol,
 ul {
   list-style: none;
