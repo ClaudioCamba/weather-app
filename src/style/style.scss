@@ -2,22 +2,21 @@
 
 :root {
   font-size: 16px;
-}
-
-body {
-  background-color: #f0f0f0;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 #weather-app > div {
   border: 1px solid red;
+  background-color: #f0f0f0;
 }
 
+// Layout styling
 #weather-app {
   width: 100vw;
   height: 100vh;
   padding: 5rem;
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: max-content 1fr 1fr;
 
   .title-search {
     display: grid;
@@ -36,21 +35,27 @@ body {
 
   .current,
   .forecast {
-    display: flex;
+    display: grid;
     justify-content: center;
     align-items: center;
+  }
+
+  .current {
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
   }
 
   .forecast {
     ul {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(5, auto);
       width: 100%;
 
       li {
-        display: flex;
+        display: grid;
         justify-content: center;
         align-items: center;
+        grid-template-rows: repeat(3, auto);
       }
     }
   }

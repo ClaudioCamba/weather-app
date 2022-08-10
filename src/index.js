@@ -1,4 +1,4 @@
-import "./style.scss";
+import "./style/style.scss";
 
 const weatherApp = (() => {
   // Store values
@@ -69,4 +69,7 @@ const weatherApp = (() => {
       alert(err); // TypeError: failed to fetch
     }
   }
+
+  // Testing
+  // document.querySelector(".current .img img").setAttribute("src", testImg);
 })();
