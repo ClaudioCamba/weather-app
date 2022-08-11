@@ -1,22 +1,109 @@
 @import "./reset.scss";
 
+@font-face {
+  font-family: "Heebo-Bold";
+  src: url("../fonts/static/Heebo-Bold.ttf") format("woff");
+}
+@font-face {
+  font-family: "Heebo-Regular";
+  src: url("../fonts/static/Heebo-Regular.ttf") format("woff");
+}
+@font-face {
+  font-family: "Heebo-Light";
+  src: url("../fonts/static/Heebo-Light.ttf") format("woff");
+}
+@font-face {
+  font-family: "Heebo-ExtraLight";
+  src: url("../fonts/static/Heebo-ExtraLight.ttf") format("woff");
+}
+@font-face {
+  font-family: "Heebo-Thin";
+  src: url("../fonts/static/Heebo-Thin.ttf") format("woff");
+}
+
+// Variables
+$black-color: #333333;
+$bg-color: #f0f0f0;
+
 :root {
   font-size: 16px;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  color: $black-color;
 }
 
 #weather-app > div {
   border: 1px solid red;
-  background-color: #f0f0f0;
+}
+
+// Title Main
+@mixin main-title {
+  font-family: "Heebo-Thin";
+  font-size: 4.6rem;
+  letter-spacing: -0.15rem;
+  color: $black-color;
+  margin-bottom: 0.4rem;
+}
+
+// Description Small
+@mixin small-desc {
+  font-family: "Heebo-Light";
+  color: $black-color;
+  font-size: 1.4rem;
+  letter-spacing: -0.03rem;
+}
+
+// Description Mid
+.temp-wrap .desc {
+  font-family: "Heebo-ExtraLight";
+  color: $black-color;
+  font-size: 2.5rem;
+  letter-spacing: -0.06rem;
+}
+
+// Weather Title
+.temp-wrap .temp {
+  font-family: "Heebo-Bold";
+  font-size: 9rem;
+  color: $black-color;
+}
+
+// Degree Symbol
+.deg-symbol {
+  position: relative;
+  display: inline-flex;
+  .minus {
+    position: absolute;
+  }
+}
+
+// Loading Bar
+.desc-2 li {
+  font-family: "Heebo-Regular";
+  color: $black-color;
+  font-size: 3rem;
+  letter-spacing: -0.06rem;
+}
+
+// Styling
+.current {
+  .location {
+    @include main-title;
+  }
+  .date {
+    @include small-desc;
+  }
 }
 
 // Layout styling
 #weather-app {
-  width: 100vw;
-  height: 100vh;
-  padding: 5rem;
+  width: 100%;
+  max-width: 1388px;
+  min-height: 100vh;
+  margin: 0 auto;
   display: grid;
-  grid-template-rows: max-content 1fr 1fr;
+  grid-template-rows: repeat(3, max-content);
+  // align-content: center;
+  padding: 3.75rem 6.875rem;
+  background-color: $bg-color;
 
   .title-search {
     display: grid;
@@ -36,13 +123,38 @@
   .current,
   .forecast {
     display: grid;
-    justify-content: center;
+    justify-items: center;
     align-items: center;
   }
 
   .current {
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, max-content);
+
+    .location {
+      grid-area: 1/1/2/5;
+    }
+    .date {
+      grid-area: 2/1/3/5;
+    }
+    .temp-wrap {
+      grid-area: 3/1/4/3;
+    }
+    .temp-img {
+      grid-area: 3/3/4/5;
+    }
+    .desc-1 {
+      grid-area: 4/1/5/5;
+    }
+    .desc-2 {
+      grid-area: 5/1/6/5;
+    }
+
+    .desc-1,
+    .desc-2 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 
   .forecast {
@@ -59,4 +171,9 @@
       }
     }
   }
+}
+
+// Testing
+#weather-app .title-search {
+  display: none;
 }
