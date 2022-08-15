@@ -1,4 +1,5 @@
 @import "./reset.scss";
+@import "./loading.scss";
 
 @font-face {
   font-family: "Heebo-Bold";
@@ -24,6 +25,11 @@
 // Variables
 $black-color: #333333;
 $bg-color: #f0f0f0;
+$loading-circle: 10rem;
+$-webkit-box-shadow: 0.125rem 0.313rem 0.625rem 0px rgba(0, 0, 0, 0.3);
+$box-shadow: 0.125rem 0.313rem 0.625rem 0px rgba(0, 0, 0, 0.3);
+$-webkit-box-shadow-inset: inset 0.125rem 0.313rem 0.625rem 0px rgba(0, 0, 0, 0.3);
+$box-shadow-inset: inset 0.125rem 0.313rem 0.625rem 0px rgba(0, 0, 0, 0.3);
 
 :root {
   font-size: 16px;
@@ -183,6 +189,9 @@ $bg-color: #f0f0f0;
       gap: 2.5rem;
       margin: 1.875rem 0;
     }
+    .desc-2 {
+      gap: 6.563rem;
+    }
   }
 
   .forecast {
@@ -201,7 +210,36 @@ $bg-color: #f0f0f0;
   }
 }
 
+// Loading Circle
+.progress-item {
+  display: flex;
+  width: $loading-circle;
+  height: $loading-circle;
+  border-radius: 50%;
+  font-size: 0;
+  animation: 0.4s ease-out reverse;
+  -webkit-box-shadow: $-webkit-box-shadow;
+  box-shadow: $box-shadow;
+}
+
+.progress-item::after {
+  content: attr(data-value);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: $loading-circle;
+  margin: 1rem;
+  line-height: 1;
+  padding-top: 0.25rem;
+  border-radius: 50%;
+  background: white;
+  font-size: 2.5rem;
+  text-align: center;
+  -webkit-box-shadow: $-webkit-box-shadow-inset;
+  box-shadow: $box-shadow-inset;
+}
+
 // Testing
 #weather-app .title-search {
-  display: none;
+  // display: none;
 }
