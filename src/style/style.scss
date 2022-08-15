@@ -24,20 +24,18 @@
 
 // Variables
 $black-color: #333333;
+$grey-color: #a0a0a0;
 $bg-color: #f0f0f0;
+$white-color: #ffffff;
 $loading-circle: 10rem;
-$-webkit-box-shadow: 0.125rem 0.313rem 0.625rem 0px rgba(0, 0, 0, 0.3);
-$box-shadow: 0.125rem 0.313rem 0.625rem 0px rgba(0, 0, 0, 0.3);
-$-webkit-box-shadow-inset: inset 0.125rem 0.313rem 0.625rem 0px rgba(0, 0, 0, 0.3);
-$box-shadow-inset: inset 0.125rem 0.313rem 0.625rem 0px rgba(0, 0, 0, 0.3);
+$-webkit-box-shadow: 0.125rem 0.313rem 0.625rem 0 rgba(0, 0, 0, 0.3);
+$box-shadow: 0.125rem 0.313rem 0.625rem 0 rgba(0, 0, 0, 0.3);
+$-webkit-box-shadow-inset: inset 0.125rem 0.313rem 0.625rem 0 rgba(0, 0, 0, 0.3);
+$box-shadow-inset: inset 0.125rem 0.313rem 0.625rem 0 rgba(0, 0, 0, 0.3);
 
 :root {
   font-size: 16px;
   color: $black-color;
-}
-
-#weather-app > div {
-  border: 1px solid red;
 }
 
 // Title Main
@@ -83,14 +81,6 @@ $box-shadow-inset: inset 0.125rem 0.313rem 0.625rem 0px rgba(0, 0, 0, 0.3);
   }
 }
 
-// Loading Bar
-.desc-2 li {
-  font-family: "Heebo-Regular";
-  color: $black-color;
-  font-size: 3rem;
-  letter-spacing: -0.06rem;
-}
-
 // Styling
 .current {
   text-align: center;
@@ -101,13 +91,16 @@ $box-shadow-inset: inset 0.125rem 0.313rem 0.625rem 0px rgba(0, 0, 0, 0.3);
   }
   .date,
   .time,
-  .desc-1 li {
+  .desc-1 li,
+  .desc-2 li span {
     @include small-desc;
   }
   .temp {
     @include temp-title;
   }
-  .desc {
+  .desc,
+  .forecast .day,
+  .forecast li > div {
     @include mid-desc;
     margin-bottom: 0.8rem;
   }
@@ -195,17 +188,39 @@ $box-shadow-inset: inset 0.125rem 0.313rem 0.625rem 0px rgba(0, 0, 0, 0.3);
   }
 
   .forecast {
-    ul {
-      display: grid;
-      grid-template-columns: repeat(5, auto);
-      width: 100%;
+    display: grid;
+    grid-template-columns: repeat(9, auto);
+    grid-area: 5/1/6/5;
+    margin-top: 1.875rem;
+    justify-content: space-evenly;
+    align-items: center;
 
-      li {
-        display: grid;
+    li {
+      display: grid;
+      justify-content: center;
+      align-items: center;
+      grid-template-rows: repeat(3, auto);
+
+      > div {
+        display: flex;
         justify-content: center;
-        align-items: center;
-        grid-template-rows: repeat(3, auto);
+
+        p:nth-child(2) {
+          color: $grey-color;
+        }
       }
+      img {
+        max-width: 7rem;
+      }
+    }
+    .separate {
+      font-size: 0;
+      height: 130px;
+      background: #fff;
+      width: 6px;
+      color: $white-color;
+      -webkit-box-shadow: $-webkit-box-shadow;
+      box-shadow: $box-shadow;
     }
   }
 }
@@ -220,6 +235,7 @@ $box-shadow-inset: inset 0.125rem 0.313rem 0.625rem 0px rgba(0, 0, 0, 0.3);
   animation: 0.4s ease-out reverse;
   -webkit-box-shadow: $-webkit-box-shadow;
   box-shadow: $box-shadow;
+  margin-bottom: 1.8rem;
 }
 
 .progress-item::after {
@@ -229,14 +245,17 @@ $box-shadow-inset: inset 0.125rem 0.313rem 0.625rem 0px rgba(0, 0, 0, 0.3);
   flex-direction: column;
   width: $loading-circle;
   margin: 1rem;
-  line-height: 1;
-  padding-top: 0.25rem;
   border-radius: 50%;
   background: white;
+  line-height: 1;
+  padding-top: 0.25rem;
   font-size: 2.5rem;
   text-align: center;
   -webkit-box-shadow: $-webkit-box-shadow-inset;
   box-shadow: $box-shadow-inset;
+  font-family: "Heebo-Regular";
+  color: $black-color;
+  letter-spacing: -0.06rem;
 }
 
 // Testing
