@@ -27,6 +27,8 @@ $black-color: #333333;
 $grey-color: #a0a0a0;
 $bg-color: #f0f0f0;
 $white-color: #ffffff;
+$yellow-color: #fdef5d;
+$orange-color: #ffa557;
 $loading-circle: 10rem;
 $-webkit-box-shadow: 0.125rem 0.313rem 0.625rem 0 rgba(0, 0, 0, 0.3);
 $box-shadow: 0.125rem 0.313rem 0.625rem 0 rgba(0, 0, 0, 0.3);
@@ -34,231 +36,274 @@ $-webkit-box-shadow-inset: inset 0.125rem 0.313rem 0.625rem 0 rgba(0, 0, 0, 0.3)
 $box-shadow-inset: inset 0.125rem 0.313rem 0.625rem 0 rgba(0, 0, 0, 0.3);
 
 :root {
-  font-size: 16px;
+  font-size: 14px;
+  font-family: "Heebo-Regular";
   color: $black-color;
-}
 
-// Title Main
-@mixin main-title {
-  font-family: "Heebo-Thin";
-  font-size: 4.6rem;
-  letter-spacing: -0.15rem;
-  color: $black-color;
-}
-
-// Description Small
-@mixin small-desc {
-  font-family: "Heebo-Light";
-  color: $black-color;
-  font-size: 1.4rem;
-  letter-spacing: -0.03rem;
-}
-
-// Description Mid
-@mixin mid-desc {
-  font-family: "Heebo-ExtraLight";
-  color: $black-color;
-  font-size: 2.5rem;
-  letter-spacing: -0.06rem;
-}
-
-// Weather Title
-@mixin temp-title {
-  font-family: "Heebo-Bold";
-  // font-size: 9rem;
-  font-size: 8rem;
-  color: $black-color;
-  line-height: 84%;
-}
-
-// Degree Symbol
-.deg-symbol {
-  position: relative;
-  display: inline-flex;
-  justify-content: center;
-  .minus {
-    position: absolute;
+  // Title Main
+  @mixin main-title {
+    font-family: "Heebo-Thin";
+    font-size: 4.6rem;
+    letter-spacing: -0.15rem;
+    color: $black-color;
   }
-}
 
-// Styling
-.current {
-  text-align: center;
+  // Description Small
+  @mixin small-desc {
+    font-family: "Heebo-Light";
+    color: $black-color;
+    font-size: 1.4rem;
+    letter-spacing: -0.03rem;
+  }
 
-  .location {
-    @include main-title;
-    margin-bottom: 0.4rem;
+  // Description Mid
+  @mixin mid-desc {
+    font-family: "Heebo-ExtraLight";
+    color: $black-color;
+    font-size: 2.5rem;
+    letter-spacing: -0.06rem;
   }
-  .date,
-  .time,
-  .desc-1 li,
-  .desc-2 li span {
-    @include small-desc;
+
+  // Weather Title
+  @mixin temp-title {
+    font-family: "Heebo-Bold";
+    // font-size: 9rem;
+    font-size: 8rem;
+    color: $black-color;
+    line-height: 84%;
   }
-  .temp {
-    @include temp-title;
+
+  // Degree Symbol
+  .deg-symbol {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    .minus {
+      position: absolute;
+    }
   }
-  .desc,
-  .forecast .day,
-  .forecast li > div {
-    @include mid-desc;
-    margin-bottom: 0.8rem;
-  }
-  .temp-img img {
-    height: auto;
-    width: auto;
-    max-width: 19.125rem;
-    max-height: 13.625rem;
+
+  // Styling
+  .current {
+    text-align: center;
+
+    .location {
+      @include main-title;
+      margin-bottom: 0.4rem;
+    }
+    .date,
+    .time,
+    .desc-1 li,
+    .desc-2 li span {
+      @include small-desc;
+    }
+    .temp {
+      @include temp-title;
+    }
+    .desc,
+    .forecast .day,
+    .forecast li > div {
+      @include mid-desc;
+      margin-bottom: 0.8rem;
+    }
+    .temp-img img {
+      height: auto;
+      width: auto;
+      max-width: 19.125rem;
+      max-height: 13.625rem;
+    }
   }
 }
 
 // Layout styling
 #weather-app {
-  width: 100%;
-  max-width: 1388px;
-  min-height: 100vh;
-  margin: 0 auto;
-  display: grid;
-  grid-template-rows: repeat(3, max-content);
-  // align-content: center;
-  padding: 3.75rem 6.875rem;
   background-color: $bg-color;
 
-  .title-search {
+  .weather-app-container {
+    width: 100%;
+    max-width: 1388px;
+    min-height: 100vh;
+    margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(3, max-content);
+    /* padding: 3.75rem 6.875rem; */
+    align-content: center;
 
-    .input-wrap {
-      align-self: center;
-      justify-self: right;
-    }
-
-    h1 {
-      align-self: center;
-      justify-self: left;
-    }
-  }
-
-  .current,
-  .forecast {
-    display: grid;
-    // justify-items: center;
-    // align-items: center;
-  }
-
-  .current {
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(5, max-content);
-
-    .intro {
-      grid-area: 1/1/2/5;
-      margin-bottom: 3.2rem;
-    }
-    .temp-wrap {
-      grid-area: 2/1/3/3;
-      margin-right: 1.25rem;
-      width: max-content;
-      align-self: start;
-      justify-self: end;
-    }
-    .temp-img {
-      grid-area: 2/3/3/5;
-      margin-left: 1.25rem;
-      display: flex;
-      justify-content: flex-start;
-    }
-    .desc-1 {
-      grid-area: 3/1/4/5;
-    }
-    .desc-2 {
-      grid-area: 4/1/5/5;
-    }
-
-    .desc-1,
-    .desc-2 {
+    .title-search {
       display: grid;
-      grid-template-columns: repeat(3, max-content);
-      justify-content: center;
-      gap: 2.5rem;
-      margin: 1.875rem 0;
-    }
-    .desc-2 {
-      gap: 6.563rem;
-    }
-  }
+      grid-template-columns: 1fr 1fr;
+      margin-bottom: 1.875rem;
 
-  .forecast {
-    display: grid;
-    grid-template-columns: repeat(9, auto);
-    grid-area: 5/1/6/5;
-    margin-top: 1.875rem;
-    justify-content: space-evenly;
-    align-items: center;
-
-    li {
-      display: grid;
-      justify-content: center;
-      align-items: center;
-      grid-template-rows: repeat(3, auto);
-
-      > div {
+      .input-wrap {
+        align-self: center;
+        justify-self: right;
         display: flex;
         justify-content: center;
+        align-items: center;
 
-        p:nth-child(2) {
-          color: $grey-color;
+        input {
+          border: 0.143rem solid $grey-color;
+          border-radius: 2rem;
+          padding: 0.4rem 1rem;
+          font-size: 1rem;
+          font-weight: 900;
+        }
+
+        button {
+          -webkit-transform: rotate(315deg);
+          -moz-transform: rotate(315deg);
+          -o-transform: rotate(315deg);
+          transform: rotate(315deg);
+          font-weight: bold;
+          font-size: 2.5rem;
+          border-radius: 50%;
+          border: none;
+          background-color: $bg-color;
+          height: 3rem;
+          width: 3rem;
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+          color: $black-color;
+          cursor: pointer;
         }
       }
-      img {
-        max-width: 7rem;
+
+      h1 {
+        align-self: center;
+        justify-self: left;
+        font-family: "Heebo-Bold";
+        font-size: 2.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        span {
+          font-size: 0;
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+          background: red;
+          height: 4rem;
+          width: 4rem;
+          border-radius: 50%;
+          background-color: $yellow-color;
+          background-image: radial-gradient(at top right, $yellow-color, $orange-color);
+          margin-right: 0.25rem;
+        }
       }
     }
-    .separate {
-      font-size: 0;
-      height: 130px;
-      background: #fff;
-      width: 6px;
-      color: $white-color;
-      -webkit-box-shadow: $-webkit-box-shadow;
-      box-shadow: $box-shadow;
+
+    .current {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(5, max-content);
+
+      .intro {
+        grid-area: 1/1/2/5;
+        margin-bottom: 3.2rem;
+      }
+      .temp-wrap {
+        grid-area: 2/1/3/3;
+        margin-right: 1.25rem;
+        width: max-content;
+        align-self: start;
+        justify-self: end;
+      }
+      .temp-img {
+        grid-area: 2/3/3/5;
+        margin-left: 1.25rem;
+        display: flex;
+        justify-content: flex-start;
+      }
+      .desc-1 {
+        grid-area: 3/1/4/5;
+      }
+      .desc-2 {
+        grid-area: 4/1/5/5;
+      }
+
+      .desc-1,
+      .desc-2 {
+        display: grid;
+        grid-template-columns: repeat(3, max-content);
+        justify-content: center;
+        gap: 2.5rem;
+        margin: 1.875rem 0;
+      }
+      .desc-2 {
+        gap: 6.563rem;
+      }
+    }
+
+    .forecast {
+      display: grid;
+      grid-template-columns: repeat(9, auto);
+      grid-area: 5/1/6/5;
+      margin-top: 1.875rem;
+      justify-content: space-evenly;
+      align-items: center;
+
+      li {
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        grid-template-rows: repeat(3, auto);
+
+        > div {
+          display: flex;
+          justify-content: center;
+
+          p:nth-child(2) {
+            color: $grey-color;
+          }
+        }
+        img {
+          max-width: 7rem;
+        }
+      }
+      .separate {
+        font-size: 0;
+        height: 130px;
+        background: #fff;
+        width: 6px;
+        color: $white-color;
+        -webkit-box-shadow: $-webkit-box-shadow;
+        box-shadow: $box-shadow;
+      }
     }
   }
-}
 
-// Loading Circle
-.progress-item {
-  display: flex;
-  width: $loading-circle;
-  height: $loading-circle;
-  border-radius: 50%;
-  font-size: 0;
-  animation: 0.4s ease-out reverse;
-  -webkit-box-shadow: $-webkit-box-shadow;
-  box-shadow: $box-shadow;
-  margin-bottom: 1.8rem;
-}
+  // Loading Circle
+  .progress-item {
+    display: flex;
+    width: $loading-circle;
+    height: $loading-circle;
+    border-radius: 50%;
+    font-size: 0;
+    animation: 0.4s ease-out reverse;
+    -webkit-box-shadow: $-webkit-box-shadow;
+    box-shadow: $box-shadow;
+    margin-bottom: 1.8rem;
+  }
 
-.progress-item::after {
-  content: attr(data-value);
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  width: $loading-circle;
-  margin: 1rem;
-  border-radius: 50%;
-  background: white;
-  line-height: 1;
-  padding-top: 0.25rem;
-  font-size: 2.5rem;
-  text-align: center;
-  -webkit-box-shadow: $-webkit-box-shadow-inset;
-  box-shadow: $box-shadow-inset;
-  font-family: "Heebo-Regular";
-  color: $black-color;
-  letter-spacing: -0.06rem;
-}
-
-// Testing
-#weather-app .title-search {
-  // display: none;
+  .progress-item::after {
+    content: attr(data-value);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: $loading-circle;
+    margin: 1rem;
+    border-radius: 50%;
+    background: $white-color;
+    line-height: 1;
+    padding-top: 0.25rem;
+    font-size: 2.5rem;
+    text-align: center;
+    -webkit-box-shadow: $-webkit-box-shadow-inset;
+    box-shadow: $box-shadow-inset;
+    font-family: "Heebo-Regular";
+    color: $black-color;
+    letter-spacing: -0.06rem;
+  }
 }

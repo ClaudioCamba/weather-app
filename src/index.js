@@ -18,18 +18,8 @@ const weatherApp = (() => {
   // Input element to get client location
   const inputElem = (() => {
     const appWrap = document.querySelector("#weather-app");
-    const elemWrap = document.createElement("div");
-    const input = document.createElement("input");
-    const button = document.createElement("button");
-
-    elemWrap.className = "input-wrap";
-    input.type = "text";
-    input.pattern = "[a-z-A-Z]+";
-    input.required = true;
-
-    elemWrap.append(input, button);
-    appWrap.querySelector(".title-search").appendChild(elemWrap);
-
+    const input = document.querySelector(".input-wrap input");
+    const button = document.querySelector(".input-wrap button");
     // Validate value before making API call
     button.addEventListener("click", () => {
       if (input.validity.valid) {
