@@ -1,5 +1,4 @@
 @import "./reset.scss";
-@import "./loading.scss";
 
 @font-face {
   font-family: "Heebo-Bold";
@@ -121,12 +120,12 @@ $box-shadow-inset: inset 0.125rem 0.313rem 0.625rem 0 rgba(0, 0, 0, 0.3);
 
   .weather-app-container {
     width: 100%;
-    max-width: 1388px;
+    max-width: 1440px;
     min-height: 100vh;
     margin: 0 auto;
     display: grid;
     grid-template-rows: repeat(3, max-content);
-    /* padding: 3.75rem 6.875rem; */
+    padding: 1.857rem;
     align-content: center;
 
     .title-search {
@@ -209,6 +208,10 @@ $box-shadow-inset: inset 0.125rem 0.313rem 0.625rem 0 rgba(0, 0, 0, 0.3);
         width: max-content;
         align-self: start;
         justify-self: end;
+
+        .desc {
+          text-transform: capitalize;
+        }
       }
       .temp-img {
         grid-area: 2/3/3/5;
