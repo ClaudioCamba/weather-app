@@ -12,6 +12,7 @@ import {
   forecasts,
   foreWrap,
 } from "./variables.js";
+import { startOfDay } from "date-fns";
 
 const domManipulation = (function () {
   "use strict";
@@ -141,6 +142,9 @@ const domManipulation = (function () {
     }
     return forecastDays;
   };
+
+  const result = startOfDay(new Date("2022-08-17"));
+  console.log(result);
 
   return { updateCurrent, updateForecast };
 })();
