@@ -9,6 +9,7 @@ const feelsLike = document.querySelector(".desc-1 .feels-like");
 const loadClouds = document.querySelector(".desc-2 .clouds");
 const loadHumid = document.querySelector(".desc-2 .humid");
 const loadWind = document.querySelector(".desc-2 .wind");
+const forecasts = document.querySelectorAll(".forecast .fore");
 let loading = document.querySelectorAll(".progress-item");
 
-export { location, temperature, description, minTemp, maxTemp, feelsLike, loading, loadClouds, loadHumid, loadWind };
+export { location, temperature, description, minTemp, maxTemp, feelsLike, loading, loadClouds, loadHumid, loadWind, forecasts };

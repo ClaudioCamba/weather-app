@@ -1,4 +1,16 @@
-import { location, temperature, description, minTemp, maxTemp, feelsLike, loading, loadClouds, loadHumid, loadWind } from "./variables.js";
+import {
+  location,
+  temperature,
+  description,
+  minTemp,
+  maxTemp,
+  feelsLike,
+  loading,
+  loadClouds,
+  loadHumid,
+  loadWind,
+  forecasts,
+} from "./variables.js";
 
 const domManipulation = (function () {
   "use strict";
@@ -12,7 +24,12 @@ const domManipulation = (function () {
     _loading(data);
   };
 
-  // DOM functions
+  const updateForecast = (data) => {
+    const cleanData = _splitDataByDays(data);
+    _lowHighTemp(cleanData);
+  };
+
+  // DOM functions ======================================================================================
   const _location = (data) => (location.innerText = data.name + ", " + data.sys.country);
   const _CurrentTemp = (data) => (temperature.innerHTML = formatTemp(Math.round(data.main.temp)));
   const _Description = (data) => (description.innerText = data.weather[0].description);
@@ -26,7 +43,7 @@ const domManipulation = (function () {
     _loadingCircle();
   };
 
-  // Helper functions
+  // Helper functions ======================================================================================
   // Format Celsius
   const formatTemp = (temp) => temp + '<span class="deg-symbol">&#176;<span class="minus">-</span></span>C';
   // Animate loading circle
@@ -42,9 +59,12 @@ const domManipulation = (function () {
           counters[index] += 1;
           if (number.classList.contains("humid")) {
             number.style.background = "conic-gradient(#fdef5d, #ffa557 calc(" + counters[index] + "%),#FFFFFF 0deg)";
-          } else {
+          } else if (number.classList.contains("clouds")) {
             number.style.background = "conic-gradient(#97DAF5, #31B8DF calc(" + counters[index] + "%),#FFFFFF 0deg)";
+          } else if (number.classList.contains("wind")) {
+            number.style.background = "conic-gradient(#FFFFFF 0deg), #97DAF5, #31B8DF calc(" + counters[index] + "%),#FFFFFF 0deg)";
           }
+
           number.setAttribute("data-value", counters[index] + "%");
           number.innerHTML = counters[index] + "%";
         }
@@ -52,7 +72,35 @@ const domManipulation = (function () {
     });
   };
 
-  return { updateCurrent };
+  const _lowHighTemp = (data) => {
+    console.log(data);
+    console.log(forecasts);
+  };
+
+  const _splitDataByDays = (data) => {
+    let forecastDays = [];
+    let forecast = [];
+    for (let i = 0; i < data.list.length; i++) {
+      if (forecast.length === 0) {
+        forecast.push(data.list[i]);
+      } else {
+        if (forecast[0].dt_txt.indexOf(data.list[i].dt_txt.split(" ")[0]) > -1) {
+          forecast.push(data.list[i]);
+        } else {
+          forecastDays.push(forecast);
+          forecast = [];
+          forecast.push(data.list[i]);
+        }
+
+        if (data.list.length - 1 === i) {
+          forecastDays.push(forecast);
+        }
+      }
+    }
+    return forecastDays;
+  };
+
+  return { updateCurrent, updateForecast };
 })();
 
 export { domManipulation };
