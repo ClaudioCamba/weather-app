@@ -65,22 +65,3 @@ const weatherApp = (() => {
   // Testing
   // document.querySelector(".current .img img").setAttribute("src", testImg);
 })();
-
-// Loading circle
-
-let items = document.querySelectorAll(".progress-item");
-const counters = Array(items.length);
-const intervals = Array(items.length);
-counters.fill(0);
-items.forEach((number, index) => {
-  intervals[index] = setInterval(() => {
-    if (counters[index] == parseInt(number.dataset.num)) {
-      clearInterval(intervals[index]);
-    } else {
-      counters[index] += 1;
-      number.style.background = "conic-gradient(#97DAF5, #31B8DF calc(" + counters[index] + "%),#FFFFFF 0deg)";
-      number.setAttribute("data-value", counters[index] + "%");
-      number.innerHTML = counters[index] + "%";
-    }
-  }, 30);
-});
