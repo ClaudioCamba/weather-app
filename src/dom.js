@@ -10,6 +10,7 @@ import {
   loadHumid,
   loadWind,
   forecasts,
+  foreWrap,
 } from "./variables.js";
 
 const domManipulation = (function () {
@@ -25,17 +26,19 @@ const domManipulation = (function () {
   };
 
   const updateForecast = (data) => {
-    const cleanData = _splitDataByDays(data);
-    _lowHighTemp(cleanData);
+    const organizedData = _splitDataByDays(data);
+    const cleanData = _removeToday(organizedData);
+    _numDays(cleanData);
+    _forecast(cleanData);
   };
 
   // DOM functions ======================================================================================
   const _location = (data) => (location.innerText = data.name + ", " + data.sys.country);
-  const _CurrentTemp = (data) => (temperature.innerHTML = formatTemp(Math.round(data.main.temp)));
+  const _CurrentTemp = (data) => (temperature.innerHTML = formatTempCel(Math.round(data.main.temp)));
   const _Description = (data) => (description.innerText = data.weather[0].description);
-  const _minTemp = (data) => (minTemp.innerHTML = "Min Temp: " + formatTemp(Math.round(data.main.temp_min)));
-  const _maxTemp = (data) => (maxTemp.innerHTML = "Max Temp: " + formatTemp(Math.round(data.main.temp_max)));
-  const _feelsLike = (data) => (feelsLike.innerHTML = "Feels like: " + formatTemp(Math.round(data.main.feels_like)));
+  const _minTemp = (data) => (minTemp.innerHTML = "Min Temp: " + formatTempCel(Math.round(data.main.temp_min)));
+  const _maxTemp = (data) => (maxTemp.innerHTML = "Max Temp: " + formatTempCel(Math.round(data.main.temp_max)));
+  const _feelsLike = (data) => (feelsLike.innerHTML = "Feels like: " + formatTempCel(Math.round(data.main.feels_like)));
   const _loading = (data) => {
     loadClouds.setAttribute("data-num", Math.round(data.clouds.all));
     loadHumid.setAttribute("data-num", Math.round(data.main.humidity));
@@ -43,9 +46,12 @@ const domManipulation = (function () {
     _loadingCircle();
   };
 
+  const _numDays = (data) => (data.length === 4 ? (foreWrap.className = "forecast four-days") : (foreWrap.className = "forecast"));
+
   // Helper functions ======================================================================================
   // Format Celsius
-  const formatTemp = (temp) => temp + '<span class="deg-symbol">&#176;<span class="minus">-</span></span>C';
+  const formatTempCel = (temp) => temp + '<span class="deg-symbol">&#176;<span class="minus">-</span></span>C';
+  const formatTemp = (temp) => temp + '<span class="deg-symbol">&#176;<span class="minus">-</span></span>';
   // Animate loading circle
   const _loadingCircle = () => {
     const counters = Array(loading.length);
@@ -72,9 +78,45 @@ const domManipulation = (function () {
     });
   };
 
-  const _lowHighTemp = (data) => {
+  const _forecast = (data) => {
     console.log(data);
-    console.log(forecasts);
+    for (let x = 0; x < data.length; x++) {
+      let max = null;
+      let min = null;
+      // Date - Day
+      forecasts[x].querySelector(".day").innerText = data[x][0].dt_txt.split(" ")[0];
+      // Min / Max
+      for (const fore of data[x]) {
+        if (max === null && min === null) {
+          max = fore.main.temp_max;
+          min = fore.main.temp_min;
+        } else {
+          fore.main.temp_max > max ? (max = fore.main.temp_max) : (max = max);
+          fore.main.temp_min < min ? (min = fore.main.temp_min) : (min = min);
+        }
+      }
+      forecasts[x].querySelector(".min").innerHTML = "/" + formatTemp(Math.round(min));
+      forecasts[x].querySelector(".max").innerHTML = formatTemp(Math.round(max));
+    }
+    // Image
+  };
+
+  const _todayDate = () => {
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, "0");
+    let mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+    let yyyy = today.getFullYear();
+    return yyyy + "-" + mm + "-" + dd;
+  };
+
+  const _removeToday = (data) => {
+    const remove = data;
+    for (let o = 0; o < remove.length; o++) {
+      if (data[o][0].dt_txt.indexOf(_todayDate()) > -1) {
+        remove.splice(o, 1);
+      }
+    }
+    return remove;
   };
 
   const _splitDataByDays = (data) => {

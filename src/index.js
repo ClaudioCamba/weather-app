@@ -1541,4 +1541,26 @@ const cleanData = [
   ],
 ];
 
-console.log(cleanData);
+// console.log(cleanData);
+
+// const todayDate = () => {
+//   let today = new Date();
+//   let dd = String(today.getDate()).padStart(2, "0");
+//   let mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+//   let yyyy = today.getFullYear();
+//   return yyyy + "-" + mm + "-" + dd;
+// };
+
+// const _removeToday = (data) => {
+//   const remove = data;
+//   for (let o = 0; o < remove.length; o++) {
+//     if (data[o][0].dt_txt.indexOf(todayDate()) > -1) {
+//       remove.splice(o, 1);
+//     }
+//   }
+//   return remove;
+// };
+
+// const _numberOfDays = (data) => (data.length === 4 ? console.log("add class to show 4") : console.log("add class to show 5"));
+
+// _numberOfDays(_removeToday(cleanData));
