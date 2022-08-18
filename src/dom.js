@@ -84,8 +84,9 @@ const domManipulation = (function () {
     for (let x = 0; x < data.length; x++) {
       let max = null;
       let min = null;
+      const getDay = startOfDay(new Date(data[x][0].dt_txt.split(" ")[0]));
       // Date - Day
-      forecasts[x].querySelector(".day").innerText = data[x][0].dt_txt.split(" ")[0];
+      forecasts[x].querySelector(".day").innerText = getDay.toString().split(" ")[0];
       // Min / Max
       for (const fore of data[x]) {
         if (max === null && min === null) {
@@ -143,8 +144,8 @@ const domManipulation = (function () {
     return forecastDays;
   };
 
-  const result = startOfDay(new Date("2022-08-17"));
-  console.log(result);
+  // const result = startOfDay(new Date("2022-08-18"));
+  // console.log(result);
 
   return { updateCurrent, updateForecast };
 })();
