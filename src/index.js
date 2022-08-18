@@ -40,10 +40,10 @@ const weatherApp = (() => {
       console.log(coord);
       values.coord = coord[0];
       // Current fetch
-      // requestData(values.todayUrl + coord[0].lat + "&lon=" + coord[0].lon + "&appid=" + values.apiKey + values.units).then((current) => {
-      //   console.log(current);
-      //   domManipulation.updateCurrent(current);
-      // });
+      requestData(values.todayUrl + coord[0].lat + "&lon=" + coord[0].lon + "&appid=" + values.apiKey + values.units).then((current) => {
+        console.log(current);
+        domManipulation.updateCurrent(current);
+      });
       // Forecast fetch
       requestData(values.foreUrl + coord[0].lat + "&lon=" + coord[0].lon + "&appid=" + values.apiKey + values.units).then((forecast) => {
         domManipulation.updateForecast(forecast);
@@ -62,11 +62,3 @@ const weatherApp = (() => {
     }
   }
 })();
-
-const _todayDate = () => {
-  let today = new Date();
-  let dd = String(today.getDate()).padStart(2, "0");
-  let mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-  let yyyy = today.getFullYear();
-  return yyyy + "-" + mm + "-" + dd;
-};

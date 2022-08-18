@@ -1,5 +1,6 @@
 import {
   location,
+  date,
   temperature,
   description,
   minTemp,
@@ -18,6 +19,7 @@ const domManipulation = (function () {
   "use strict";
   const updateCurrent = (data) => {
     _location(data);
+    _locationDate();
     _CurrentTemp(data);
     _Description(data);
     _minTemp(data);
@@ -35,6 +37,7 @@ const domManipulation = (function () {
 
   // DOM functions ======================================================================================
   const _location = (data) => (location.innerText = data.name + ", " + data.sys.country);
+  const _locationDate = () => (date.innerText = _todaysDate());
   const _CurrentTemp = (data) => (temperature.innerHTML = formatTempCel(Math.round(data.main.temp)));
   const _Description = (data) => (description.innerText = data.weather[0].description);
   const _minTemp = (data) => (minTemp.innerHTML = "Min Temp: " + formatTempCel(Math.round(data.main.temp_min)));
@@ -110,6 +113,26 @@ const domManipulation = (function () {
     let yyyy = today.getFullYear();
     return yyyy + "-" + mm + "-" + dd;
   };
+  const _todaysDate = () => {
+    var options = {
+      weekday: "short",
+      year: "numeric",
+      day: "numeric",
+      month: "short",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false,
+    };
+    let date = new Date().toLocaleTimeString("en-us", options).split(",");
+    date.splice(date.length - 1, 1);
+    date[1] = date[1].trim().split(" ").reverse().join(" ");
+    date[2] = date[2].trim();
+    date[0] += ",";
+    date = date.join(" ").trim();
+
+    return date;
+  };
 
   const _removeToday = (data) => {
     const remove = data;
@@ -143,9 +166,6 @@ const domManipulation = (function () {
     }
     return forecastDays;
   };
-
-  // const result = startOfDay(new Date("2022-08-18"));
-  // console.log(result);
 
   return { updateCurrent, updateForecast };
 })();
