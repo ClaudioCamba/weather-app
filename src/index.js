@@ -9,13 +9,16 @@ const weatherApp = (() => {
     loc: null,
     limit: "5",
     units: "&units=metric",
-    apiKey: "e2f88a64edb26908f2c8a836e0f87c19",
+    weatherKey: "e2f88a64edb26908f2c8a836e0f87c19",
     coordUrl: "https://api.openweathermap.org/geo/1.0/direct?q=",
     coord: null,
     todayUrl: "https://api.openweathermap.org/data/2.5/weather?lat=",
     today: null,
     foreUrl: "https://api.openweathermap.org/data/2.5/forecast?lat=",
     fore: null,
+    dateTimeKey: "2d1eb7787762482d96073c2f8eb1addf",
+    dateTimeUrl: "https://api.ipgeolocation.io/timezone?apiKey=",
+    dateTime: "",
   };
 
   // Input element to get client location
@@ -36,17 +39,25 @@ const weatherApp = (() => {
 
   // Fetch weather Data
   const getData = (val) => {
-    requestData(values.coordUrl + val + "&limit=" + values.limit + "&appid=" + values.apiKey).then((coord) => {
+    requestData(values.coordUrl + val + "&limit=" + values.limit + "&appid=" + values.weatherKey).then((coord) => {
       console.log(coord);
       values.coord = coord[0];
       // Current fetch
-      requestData(values.todayUrl + coord[0].lat + "&lon=" + coord[0].lon + "&appid=" + values.apiKey + values.units).then((current) => {
-        console.log(current);
-        domManipulation.updateCurrent(current);
-      });
+      requestData(values.todayUrl + coord[0].lat + "&lon=" + coord[0].lon + "&appid=" + values.weatherKey + values.units).then(
+        (current) => {
+          console.log(current);
+          domManipulation.updateCurrent(current);
+        }
+      );
       // Forecast fetch
-      requestData(values.foreUrl + coord[0].lat + "&lon=" + coord[0].lon + "&appid=" + values.apiKey + values.units).then((forecast) => {
-        domManipulation.updateForecast(forecast);
+      requestData(values.foreUrl + coord[0].lat + "&lon=" + coord[0].lon + "&appid=" + values.weatherKey + values.units).then(
+        (forecast) => {
+          domManipulation.updateForecast(forecast);
+        }
+      );
+      // Location date and time
+      requestData(values.dateTimeUrl + values.dateTimeKey + "&lat=" + coord[0].lat + "&long=" + coord[0].lon).then((dateTime) => {
+        domManipulation.updateDateTime(dateTime);
       });
     });
   };

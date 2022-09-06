@@ -1,0 +1,408 @@
+/* Reset CSS ============================ */
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+body * {
+  box-sizing: border-box;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+@font-face {
+  font-family: "Heebo-Bold";
+  src: url("../fonts/static/Heebo-Bold.ttf") format("woff");
+}
+@font-face {
+  font-family: "Heebo-Regular";
+  src: url("../fonts/static/Heebo-Regular.ttf") format("woff");
+}
+@font-face {
+  font-family: "Heebo-Light";
+  src: url("../fonts/static/Heebo-Light.ttf") format("woff");
+}
+@font-face {
+  font-family: "Heebo-ExtraLight";
+  src: url("../fonts/static/Heebo-ExtraLight.ttf") format("woff");
+}
+@font-face {
+  font-family: "Heebo-Thin";
+  src: url("../fonts/static/Heebo-Thin.ttf") format("woff");
+}
+:root {
+  font-size: 14px;
+  font-family: "Heebo-Regular";
+  color: #333333;
+}
+:root .deg-symbol {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+}
+:root .deg-symbol .minus {
+  position: absolute;
+}
+:root .current {
+  text-align: center;
+}
+:root .current .location {
+  font-family: "Heebo-Thin";
+  font-size: 4.6rem;
+  letter-spacing: -0.15rem;
+  color: #333333;
+  margin-bottom: 0.4rem;
+}
+:root .current .date,
+:root .current .time,
+:root .current .desc-1 li,
+:root .current .desc-2 li span {
+  font-family: "Heebo-Light";
+  color: #333333;
+  font-size: 1.4rem;
+  letter-spacing: -0.03rem;
+}
+:root .current .temp {
+  font-family: "Heebo-Bold";
+  font-size: 8rem;
+  color: #333333;
+  line-height: 84%;
+}
+:root .current .desc,
+:root .current .forecast .day,
+:root .current .forecast li > div {
+  font-family: "Heebo-ExtraLight";
+  color: #333333;
+  font-size: 2.5rem;
+  letter-spacing: -0.06rem;
+  margin-bottom: 0.8rem;
+}
+:root .current .temp-img img {
+  height: auto;
+  width: auto;
+  max-width: 19.125rem;
+  max-height: 13.625rem;
+}
+
+#weather-app {
+  background-color: #f0f0f0;
+}
+#weather-app .weather-app-container {
+  width: 100%;
+  max-width: 1440px;
+  min-height: 100vh;
+  margin: 0 auto;
+  display: grid;
+  grid-template-rows: repeat(3, -webkit-max-content);
+  grid-template-rows: repeat(3, max-content);
+  padding: 1.857rem;
+  align-content: center;
+}
+#weather-app .weather-app-container .title-search {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 1.875rem;
+}
+#weather-app .weather-app-container .title-search .input-wrap {
+  align-self: center;
+  justify-self: right;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#weather-app .weather-app-container .title-search .input-wrap input {
+  border: 0.143rem solid #a0a0a0;
+  border-radius: 2rem;
+  padding: 0.4rem 1rem;
+  font-size: 1rem;
+  font-weight: 900;
+}
+#weather-app .weather-app-container .title-search .input-wrap button {
+  transform: rotate(315deg);
+  font-weight: bold;
+  font-size: 2.5rem;
+  border-radius: 50%;
+  border: none;
+  background-color: #f0f0f0;
+  height: 3rem;
+  width: 3rem;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: #333333;
+  cursor: pointer;
+}
+#weather-app .weather-app-container .title-search h1 {
+  align-self: center;
+  justify-self: left;
+  font-family: "Heebo-Bold";
+  font-size: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: underline;
+}
+#weather-app .weather-app-container .title-search h1 .logo-sun {
+  font-size: 0;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background: red;
+  height: 4rem;
+  width: 4rem;
+  border-radius: 50%;
+  background-color: #fdef5d;
+  background-image: radial-gradient(at top right, #fdef5d, #ffa557);
+  margin-right: 0.25rem;
+  border: 5px solid #333333;
+}
+#weather-app .weather-app-container .current {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, -webkit-max-content);
+  grid-template-rows: repeat(5, max-content);
+}
+#weather-app .weather-app-container .current .intro {
+  grid-area: 1/1/2/5;
+  margin-bottom: 3.2rem;
+}
+#weather-app .weather-app-container .current .temp-wrap {
+  grid-area: 2/1/3/3;
+  margin-right: 1.25rem;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  align-self: start;
+  justify-self: end;
+}
+#weather-app .weather-app-container .current .temp-wrap .desc {
+  text-transform: capitalize;
+}
+#weather-app .weather-app-container .current .temp-img {
+  grid-area: 2/3/3/5;
+  margin-left: 1.25rem;
+  display: flex;
+  justify-content: flex-start;
+}
+#weather-app .weather-app-container .current .desc-1 {
+  grid-area: 3/1/4/5;
+}
+#weather-app .weather-app-container .current .desc-2 {
+  grid-area: 4/1/5/5;
+}
+#weather-app .weather-app-container .current .desc-1,
+#weather-app .weather-app-container .current .desc-2 {
+  display: grid;
+  grid-template-columns: repeat(3, -webkit-max-content);
+  grid-template-columns: repeat(3, max-content);
+  justify-content: center;
+  gap: 2.5rem;
+  margin: 1.875rem 0;
+}
+#weather-app .weather-app-container .current .desc-2 {
+  gap: 6.563rem;
+}
+#weather-app .weather-app-container .forecast {
+  display: flex;
+  grid-area: 5/1/6/5;
+  margin-top: 1.875rem;
+  justify-content: space-evenly;
+  align-items: center;
+}
+#weather-app .weather-app-container .forecast li {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-rows: repeat(3, auto);
+}
+#weather-app .weather-app-container .forecast li > div {
+  display: flex;
+  justify-content: center;
+}
+#weather-app .weather-app-container .forecast li > div p:nth-child(2) {
+  color: #a0a0a0;
+}
+#weather-app .weather-app-container .forecast li img {
+  max-width: 7rem;
+  margin: 0 auto;
+}
+#weather-app .weather-app-container .forecast .separate {
+  font-size: 0;
+  height: 130px;
+  background: #fff;
+  width: 6px;
+  color: #ffffff;
+  box-shadow: 0.125rem 0.313rem 0.625rem 0 rgba(0, 0, 0, 0.3);
+}
+#weather-app .weather-app-container .four-days.forecast .fore:nth-of-type(9),
+#weather-app .weather-app-container .four-days.forecast .separate:nth-of-type(8) {
+  display: none;
+}
+#weather-app .progress-item {
+  display: flex;
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  font-size: 0;
+  animation: 0.4s ease-out reverse;
+  box-shadow: 0.125rem 0.313rem 0.625rem 0 rgba(0, 0, 0, 0.3);
+  margin-bottom: 1.8rem;
+}
+#weather-app .progress-item::after {
+  content: attr(data-value);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 10rem;
+  margin: 1rem;
+  border-radius: 50%;
+  background: #ffffff;
+  line-height: 1;
+  padding-top: 0.25rem;
+  font-size: 2.5rem;
+  text-align: center;
+  box-shadow: inset 0.125rem 0.313rem 0.625rem 0 rgba(0, 0, 0, 0.3);
+  font-family: "Heebo-Regular";
+  color: #333333;
+  letter-spacing: -0.06rem;
+}/*# sourceMappingURL=style.css.map */
