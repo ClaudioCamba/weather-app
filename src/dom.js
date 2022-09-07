@@ -37,6 +37,7 @@ const domManipulation = (function () {
 
   const updateDateTime = (data) => {
     console.log(data);
+    // _date(data)
   };
 
   // DOM functions ======================================================================================
@@ -54,8 +55,23 @@ const domManipulation = (function () {
     _loadingCircle();
   };
   const _numDays = (data) => (data.length === 4 ? (foreWrap.className = "forecast four-days") : (foreWrap.className = "forecast"));
-  const _date = (data) => {};
-  const _time = (data) => {};
+  const _date = (data) => {
+    let mainDate = "Wednesday, September 07, 2022 11:59:01".split(" ");
+    let buildDate = [];
+    buildDate.push(mainDate[0].split("").splice(0, 3).join("") + ","); // Day
+    buildDate.push(mainDate[2].replace(",", "")); // Date
+    buildDate.push(mainDate[1].split("").splice(0, 3).join("")); // Month
+    buildDate.push(mainDate[3]); // Month
+    console.log(buildDate.join(" "));
+  };
+  const _time = (data) => {
+    let time = "12:35:05 PM".toLocaleLowerCase().split(" ");
+    time[0] = time[0]
+      .split("")
+      .splice(0, time[0].length - 3)
+      .join("");
+    console.log(time.join(""));
+  };
 
   // Helper functions ======================================================================================
   // Format Celsius
