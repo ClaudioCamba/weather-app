@@ -2,6 +2,7 @@
 
 const location = document.querySelector(".intro .location");
 const date = document.querySelector(".intro .date");
+const updatedTime = document.querySelector(".temp-wrap .time");
 const temperature = document.querySelector(".temp-wrap .temp");
 const description = document.querySelector(".temp-wrap .desc");
 const minTemp = document.querySelector(".desc-1 .min-temp");
@@ -17,6 +18,7 @@ let loading = document.querySelectorAll(".progress-item");
 export {
   location,
   date,
+  updatedTime,
   temperature,
   description,
   minTemp,

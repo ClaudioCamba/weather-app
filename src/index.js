@@ -56,9 +56,9 @@ const weatherApp = (() => {
         }
       );
       // Location date and time
-      requestData(values.dateTimeUrl + values.dateTimeKey + "&lat=" + coord[0].lat + "&long=" + coord[0].lon).then((dateTime) => {
-        domManipulation.updateDateTime(dateTime);
-      });
+      // requestData(values.dateTimeUrl + values.dateTimeKey + "&lat=" + coord[0].lat + "&long=" + coord[0].lon).then((dateTime) => {
+      //   domManipulation.updateDateTime(dateTime);
+      // });
     });
   };
 

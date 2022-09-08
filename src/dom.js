@@ -1,6 +1,7 @@
 import {
   location,
   date,
+  updatedTime,
   temperature,
   description,
   minTemp,
@@ -37,46 +38,64 @@ const domManipulation = (function () {
 
   const updateDateTime = (data) => {
     console.log(data);
-    // _date(data)
+    _time(data);
+    _date(data);
   };
 
   // DOM functions ======================================================================================
   const _location = (data) => (location.innerText = data.name + ", " + data.sys.country);
   // const _locationDate = () => (date.innerText = _todaysDate());
-  const _CurrentTemp = (data) => (temperature.innerHTML = formatTempCel(Math.round(data.main.temp)));
+  const _CurrentTemp = (data) => (temperature.innerHTML = _formatTempCel(Math.round(data.main.temp)));
   const _Description = (data) => (description.innerText = data.weather[0].description);
-  const _minTemp = (data) => (minTemp.innerHTML = "Min Temp: " + formatTempCel(Math.round(data.main.temp_min)));
-  const _maxTemp = (data) => (maxTemp.innerHTML = "Max Temp: " + formatTempCel(Math.round(data.main.temp_max)));
-  const _feelsLike = (data) => (feelsLike.innerHTML = "Feels like: " + formatTempCel(Math.round(data.main.feels_like)));
+  const _minTemp = (data) => (minTemp.innerHTML = "Min Temp: " + _formatTempCel(Math.round(data.main.temp_min)));
+  const _maxTemp = (data) => (maxTemp.innerHTML = "Max Temp: " + _formatTempCel(Math.round(data.main.temp_max)));
+  const _feelsLike = (data) => (feelsLike.innerHTML = "Feels like: " + _formatTempCel(Math.round(data.main.feels_like)));
   const _loading = (data) => {
     loadClouds.setAttribute("data-num", Math.round(data.clouds.all));
     loadHumid.setAttribute("data-num", Math.round(data.main.humidity));
-    loadHumid.setAttribute("data-num", Math.round(data.main.humidity));
+    loadWind.setAttribute("data-num", _windToPercent(data));
     _loadingCircle();
   };
+
+  // Forecast dates
   const _numDays = (data) => (data.length === 4 ? (foreWrap.className = "forecast four-days") : (foreWrap.className = "forecast"));
+
+  // Location date
   const _date = (data) => {
-    let mainDate = "Wednesday, September 07, 2022 11:59:01".split(" ");
+    let mainDate = data.date_time_txt.split(" ");
     let buildDate = [];
     buildDate.push(mainDate[0].split("").splice(0, 3).join("") + ","); // Day
     buildDate.push(mainDate[2].replace(",", "")); // Date
     buildDate.push(mainDate[1].split("").splice(0, 3).join("")); // Month
     buildDate.push(mainDate[3]); // Month
-    console.log(buildDate.join(" "));
+    date.innerText = buildDate.join(" ");
   };
+
+  // Updated location time
   const _time = (data) => {
-    let time = "12:35:05 PM".toLocaleLowerCase().split(" ");
+    let time = data.time_12.toLocaleLowerCase().split(" ");
     time[0] = time[0]
       .split("")
       .splice(0, time[0].length - 3)
       .join("");
-    console.log(time.join(""));
+    updatedTime.innerText = "Updated " + time.join("");
   };
 
   // Helper functions ======================================================================================
+  // Wind circle loading function
+  const _windToPercent = (data) => {
+    const windDeg = Math.round(data.wind.deg / (360 / 100));
+    if (windDeg === 0) {
+      windDeg = 1;
+    } else if (windDeg === 100) {
+      windDeg = 99;
+    }
+    return windDeg;
+  };
+
   // Format Celsius
-  const formatTempCel = (temp) => temp + '<span class="deg-symbol">&#176;<span class="minus">-</span></span>C';
-  const formatTemp = (temp) => temp + '<span class="deg-symbol">&#176;<span class="minus">-</span></span>';
+  const _formatTempCel = (temp) => temp + '<span class="deg-symbol">&#176;<span class="minus">-</span></span>C';
+  const _formatTemp = (temp) => temp + '<span class="deg-symbol">&#176;<span class="minus">-</span></span>';
   // Animate loading circle
   const _loadingCircle = () => {
     const counters = Array(loading.length);
@@ -93,7 +112,14 @@ const domManipulation = (function () {
           } else if (number.classList.contains("clouds")) {
             number.style.background = "conic-gradient(#97DAF5, #31B8DF calc(" + counters[index] + "%),#FFFFFF 0deg)";
           } else if (number.classList.contains("wind")) {
-            number.style.background = "conic-gradient(#FFFFFF 0deg), #97DAF5, #31B8DF calc(" + counters[index] + "%),#FFFFFF 0deg)";
+            number.style.background =
+              "conic-gradient(#FFF calc(" +
+              (counters[index] - 1) +
+              "%), #333 calc(" +
+              (counters[index] - 1) +
+              "%), #333 calc(" +
+              (counters[index] + 1) +
+              "%), #FFF 0deg)";
           }
 
           number.setAttribute("data-value", counters[index] + "%");
@@ -121,8 +147,8 @@ const domManipulation = (function () {
           fore.main.temp_min < min ? (min = fore.main.temp_min) : (min = min);
         }
       }
-      forecasts[x].querySelector(".min").innerHTML = "/" + formatTemp(Math.round(min));
-      forecasts[x].querySelector(".max").innerHTML = formatTemp(Math.round(max));
+      forecasts[x].querySelector(".min").innerHTML = "/" + _formatTemp(Math.round(min));
+      forecasts[x].querySelector(".max").innerHTML = _formatTemp(Math.round(max));
     }
     // Image
   };

@@ -297,6 +297,7 @@ $box-shadow-inset: inset 0.125rem 0.313rem 0.625rem 0 rgba(0, 0, 0, 0.3);
     -webkit-box-shadow: $-webkit-box-shadow;
     box-shadow: $box-shadow;
     margin-bottom: 1.8rem;
+    background-color: $white-color;
   }
 
   .progress-item::after {
