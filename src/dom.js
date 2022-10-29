@@ -157,7 +157,7 @@ const domManipulation = (function () {
               wind = 'NW'; 
             } else if (counters[index] > 93.75 && counters[index] <= 100) {
               wind = 'NNW'; 
-              console.log('test');
+              console.log('test1');
             }
             number.innerHTML = wind;
             number.setAttribute("data-value", wind);
