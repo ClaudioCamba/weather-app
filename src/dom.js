@@ -96,6 +96,7 @@ const domManipulation = (function () {
   // Format Celsius
   const _formatTempCel = (temp) => temp + '<span class="deg-symbol">&#176;<span class="minus">-</span></span>C';
   const _formatTemp = (temp) => temp + '<span class="deg-symbol">&#176;<span class="minus">-</span></span>';
+
   // Animate loading circle
   const _loadingCircle = () => {
     const counters = Array(loading.length);
@@ -122,8 +123,49 @@ const domManipulation = (function () {
               "%), #FFF 0deg)";
           }
 
-          number.setAttribute("data-value", counters[index] + "%");
-          number.innerHTML = counters[index] + "%";
+          if (number.classList.contains("wind")) {
+            let wind = '';
+            if (counters[index] >= 0 && counters[index] <= 6.25) {
+              wind = 'N';
+            } else if (counters[index] > 6.25 && counters[index] <= 12.5) {
+              wind = 'NNE';
+            } else if (counters[index] > 12.5 && counters[index] <= 18.75) {
+              wind = 'NE';
+            } else if (counters[index] > 18.75 && counters[index] <= 25) {
+              wind = 'ENE'; 
+            } else if (counters[index] > 25 && counters[index] <= 31.25) {
+              wind = 'E'; 
+            } else if (counters[index] > 31.25 && counters[index] <= 37.5) {
+              wind = 'ESE'; 
+            } else if (counters[index] > 37.5 && counters[index] <= 43.75) {
+              wind = 'SE'; 
+            } else if (counters[index] > 43.75 && counters[index] <= 50) {
+              wind = 'SSE'; 
+            } else if (counters[index] > 50 && counters[index] <= 56.25) {
+              wind = 'S'; 
+            } else if (counters[index] > 56.25 && counters[index] <= 62.5) {
+              wind = 'SSW'; 
+            } else if (counters[index] > 62.5 && counters[index] <= 68.75) {
+              wind = 'SW'; 
+            } else if (counters[index] > 68.75 && counters[index] <= 75) {
+              wind = 'WSW'; 
+            } else if (counters[index] > 75 && counters[index] <= 81.25) {
+              wind = 'W'; 
+            } else if (counters[index] > 81.25 && counters[index] <= 87.5) {
+              wind = 'WNW'; 
+            } else if (counters[index] > 87.5 && counters[index] <= 93.75) {
+              wind = 'NW'; 
+            } else if (counters[index] > 93.75 && counters[index] <= 100) {
+              wind = 'NNW'; 
+            }
+            number.innerHTML = wind;
+            number.setAttribute("data-value", wind);
+          } else {
+            number.innerHTML = counters[index] + "%";
+            number.setAttribute("data-value", counters[index] + "%");
+          }
+
+          
         }
       }, 15);
     });
